@@ -7,8 +7,6 @@ var y = 150;
 
 var canvas = document.querySelector("#canvas");
 var ctx = canvas.getContext("2d");
-var mouseX,mouseY,mouseDown=0;
-
 var width = canvas.width;
 var height = canvas.height;
 
@@ -30,9 +28,11 @@ window.addEventListener('load',function(e){
 canvas.addEventListener('mousemove', function(e) {
   console.log(e.x);
   console.log(e.y);
+  if(startDrawing){
   x = e.x;
   y = e.y;
-  draw()
+  draw();
+}
 })
 
 //Add a listener for the touch move
