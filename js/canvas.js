@@ -14,7 +14,6 @@ var height = canvas.height;
 
 var newColor = document.querySelector("#clr").value;
 var startDrawing = true;
-var mousePos = { x:0, y:0 };
 //You will want to add more
 ctx.fillStyle = "#FF0000";
 draw()
