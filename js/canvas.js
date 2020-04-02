@@ -7,21 +7,25 @@ var y = 150;
 
 var canvas = document.querySelector("#canvas");
 var ctx = canvas.getContext("2d");
+var mouseX,mouseY,mouseDown=0;
 
-var wid = canvas.width;
-var hei = canvas.height;
+var width = canvas.width;
+var height = canvas.height;
 
 var newColor = document.querySelector("#clr").value;
 var startDrawing = true;
+var mousePos = { x:0, y:0 };
 //You will want to add more
 ctx.fillStyle = "#FF0000";
 draw()
 //canvas element should have a width of 75% of the screen width and a height of 75% of the screen height.
-
+width= 0.75* window.innerWidth;
+height = 0.75* window.innerHeight;
 
 //Listeners!!
 //Add a listener for loading the window
 window.addEventListener('load',function(e){
+  console.log("loading window...")
 })
 //Add a listener for the mouse movement
 canvas.addEventListener('mousemove', function(e) {
@@ -31,10 +35,16 @@ canvas.addEventListener('mousemove', function(e) {
   y = e.y;
   draw()
 })
+
 //Add a listener for the touch move
 canvas.addEventListener('touchmove', function(e){
-
+  x = e.touches[0].pageX;
+  y = e.touches[0].pageY;
+  draw();
 })
+
+
+
 //Add a listener for the keydown
 document.addEventListener('keydown', function(e) {
   console.log("In keydown")
@@ -59,18 +69,18 @@ document.addEventListener('keydown', function(e) {
   //clean the Canvas by space key
   else if(e.keyCode == 32){
     console.log("clear the canvas");
-    ctx.clearRect(0, 0, wid, hei);
+    ctx.clearRect(0, 0, width, height);
   }
   //stop drawing by up arrow
   else if(e.keyCode == 38){
-    console.log("stop drawing");
     startDrawing = false;
+    console.log("stop drawing");
   }
 
   //start to draw by down arrow
   else if(e.keyCode == 40){
-    console.log("start drawing");
     startDrawing = true;
+    console.log("start drawing");
   }
 })
 
@@ -81,11 +91,9 @@ clr.addEventListener('input', function(e){
   console.log(e);
   //find the new value of the clr colorpicker
   //use that value to update the color of the drawing
-  if(newColor != ctx.fillStyle){
-    ctx.fillStyle = newColor;
-    console.log("color changed");
-  }
-})
+  ctx.fillStyle = this.value;
+  console.log("color changed");
+  })
 
 // Functions!
 // I would add a function for draw
@@ -95,3 +103,5 @@ function draw(){
   ctx.arc(x,y,radius,0,2*Math.PI);
   ctx.fill();
 }
+
+//touch function
